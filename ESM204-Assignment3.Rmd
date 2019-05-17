@@ -1,0 +1,38 @@
+---
+title: "ESM204-Assignment3"
+author: "Geoffrey Cook"
+date: "5/16/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+##############################################################
+# Reading in libraries and databases
+##############################################################
+
+# Libraries
+library(tidyverse)
+library(car)
+library(RColorBrewer)
+library(stargazer)
+library(vcdExtra)
+library(reshape2)
+library(effsize)
+library(pwr)
+library(kableExtra)
+library(corrplot) 
+library(janitor)
+library(lubridate) 
+library(gganimate)
+library(ggimage)
+library(plotly)
+
+# Data
+
+
+```
+
