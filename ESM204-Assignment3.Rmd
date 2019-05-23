@@ -34,6 +34,8 @@ library(gganimate)
 library(ggimage)
 library(plotly)
 library(knitr)
+library(gridExtra)
+
 
 # Data
 whales <- read_csv("HW3Data.csv")
