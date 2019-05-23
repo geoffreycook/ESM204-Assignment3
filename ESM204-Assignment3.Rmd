@@ -1,15 +1,18 @@
 ---
 title: "ESM204-Assignment3"
-author: "Geoffrey Cook"
+author: "Geoffrey Cook & Tara Jagadeesh"
 date: "5/16/2019"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
+  word_document: default
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r Reading in Libraries and Databases}
+```{r Reading in Libraries and Databases, include=FALSE}
 ##############################################################
 # Reading in libraries and databases
 ##############################################################
@@ -30,13 +33,14 @@ library(lubridate)
 library(gganimate)
 library(ggimage)
 library(plotly)
+library(knitr)
 
 # Data
 whales <- read_csv("HW3Data.csv")
 
 ```
 
-```{r Question 1}
+```{r Question 1, results='asis', messages=FALSE, include=FALSE}
 ##############################################################
 # Question 1
 ##############################################################
@@ -47,11 +51,14 @@ whales <- read_csv("HW3Data.csv")
 ### Not sure if all we need to have here are the coefficients but if so, this seems to give those to us.
 
 p_yes <- lm(vote ~ age+income+NEP+risk+bid, data = whales)
-p_yes
-
 summary(p_yes)
+
+# Making a table for the linear model results
+table_p_yes <- stargazer(p_yes)
+
 ```
-```{r Question 2}
+
+```{r Question 2, results='asis', messages=FALSE, include=TRUE}
 ##############################################################
 # Question 2
 ##############################################################
