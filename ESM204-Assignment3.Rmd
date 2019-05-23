@@ -3,8 +3,8 @@ title: "ESM204-Assignment3"
 author: "Geoffrey Cook & Tara Jagadeesh"
 date: "5/16/2019"
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
   word_document: default
 ---
 
@@ -40,7 +40,7 @@ whales <- read_csv("HW3Data.csv")
 
 ```
 
-```{r Question 1, results='asis', messages=FALSE, include=FALSE}
+```{r Question 1, results='asis', messages=FALSE, include=TRUE}
 ##############################################################
 # Question 1
 ##############################################################
@@ -57,14 +57,69 @@ summary(p_yes)
 table_p_yes <- stargazer(p_yes)
 
 ```
+1. Create a linear probability model that predicts a respondent’s probability of voting ‘yes’ on the ballot based on their age, income, NEP score, the risk reduction offered by the program, and the cost of the program to that respondent. Show the model and interpret the regression coefficients
 
-```{r Question 2, results='asis', messages=FALSE, include=TRUE}
+The following is the linear regression equation:
+Y_yes = 0.1196977 + (0.0099816*agetofifty) + (-0.0201190*agetoforty) + (-0.0162261*agetosixty) + (0.0204401*agetothirty) + (0.0088282*incomeone_percent) + (0.0027386*incomepoor) + (0.0074891*incomerich) + (0.0467922*incomevery_rich) + (0.0158639*NEP) + (0.0007445*risk) + (-0.0010699*bid)
+
+```{r Question 2, results='asis', messages=FALSE, include=FALSE}
 ##############################################################
 # Question 2
 ##############################################################
 # Based on this regression, what can you say about the value of a single prevented whale death? (Hint: Think about how risk reduction for all whales translates into the number of whale deaths avoided)
 ##############################################################
 
+value_per_whale <- -4*(p_yes$coefficients["risk"]/p_yes$coefficients["bid"])
+# value_per_whale = $2.7834
 
+```
+2.  Based on this regression, what can you say about the value of a single prevented whale death? (Hint: Think about how risk reduction for all whales translates into the number of whale deaths avoided
+
+Based on this equation, assuming a 20% reduction in whale strike likelihood saves 5 whales, the value of each whale saved under this assumption is approximately $2.78.
+
+```{r Question 3, results='asis', messages=FALSE, include=FALSE}
+##############################################################
+# Question 3
+##############################################################
+# Pick three arbitrary respondents. For each of those respondents, estimate their WTP for a VSR program offering 60% risk reduction
+##############################################################
+
+# Create a sub data frame that only includes risk = 60 in their column
+risk_60 <- whales %>% 
+  filter(risk == "60")
+
+# From that new list, select three random respondants and determine their respective WTP (bid)
+##################################
+# Row: 6
+# Risk = 60
+# NEP = 24
+# Income = one_percent
+# Age = tothirty
+##################################
+
+bid_person1 = (0.5 - 0.1196977 - (0.0204401*1) - (0.0088282*1) - (0.0158639*24) - (0.0007445*60)) / (-0.0010699)
+# bid_person1 = 69.5107954014394
+
+##################################
+# Row: 16
+# Risk = 60
+# NEP = 27
+# Income = poor 
+# Age = tofifty
+##################################
+
+bid_person2 = (0.5 - 0.1196977 - (0.0099816*1) - (0.0027386*1) - (0.0158639*27) - (0.0007445*60)) / (-0.0010699)
+# bid_person2 = 98.5262174034957
+
+##################################
+# Row: 65
+# Risk = 60
+# NEP = 45
+# Income + very_rich
+# Age = oversixty
+##################################
+
+bid_person3 = (0.5 - 0.1196977 - (-0.0201190*1) - (0.0467922*1) - (0.0158639*40) - (0.0007445*60)) / (-0.0010699)
+# bid_person3 = 304.324609776615
 ```
 
